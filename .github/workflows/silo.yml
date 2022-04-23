@@ -46,6 +46,13 @@ jobs:
         tags: ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.CLIENT_IMAGE_NAME }}:${{ github.sha }}
         file: ${{ env.CLIENT_DOCKER_FILE_PATH }}
 
+    - name: Build and push Dashboard image to registry
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.DASHBOARD_IMAGE_NAME }}:${{ github.sha }}
+        file: ${{ env.DASHBOARD_DOCKER_FILE_PATH }}
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
