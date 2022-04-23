@@ -9,8 +9,10 @@ env:
   CONTAINER_REGISTRY_LOGIN_SERVER: helloorleansregistry.azurecr.io
   SILO_DOCKER_FILE_PATH: HelloOrleans.Silo/Dockerfile
   CLIENT_DOCKER_FILE_PATH: HelloOrleans.Client/Dockerfile
+  DASHBOARD_DOCKER_FILE_PATH: HelloOrleans.Dashboard/Dockerfile
   SILO_IMAGE_NAME: helloorleanssilo
   CLIENT_IMAGE_NAME: helloorleansclient
+  DASHBOARD_IMAGE_NAME: helloorleansdashboard
 
 jobs:
   build:
@@ -83,6 +85,16 @@ jobs:
           az containerapp registry set -n client -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }} --debug
 
           az containerapp update -n client -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.CLIENT_IMAGE_NAME }}:${{ github.sha }} --debug
+
+    - name: Deploy Dashboard
+      uses: azure/CLI@v1
+      with:
+        inlineScript: >
+          echo "Deploying Dashboard"
+          
+          az containerapp registry set -n dashboard -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }} --debug
+
+          az containerapp update -n dashboard -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.DASHBOARD_IMAGE_NAME }}:${{ github.sha }} --debug
 
     - name: logout
       run: >
