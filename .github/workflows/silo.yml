@@ -52,7 +52,9 @@ jobs:
       with:
         inlineScript: >
           echo "Installing containerapp extension"
+
           az config set extension.use_dynamic_install=yes_without_prompt
+
           az extension add --name containerapp --yes
 
     - name: Deploy Silo
@@ -62,6 +64,7 @@ jobs:
           echo "Deploying Silo"
 
           az config set extension.use_dynamic_install=yes_without_prompt
+
           az extension add --name containerapp --yes
 
           az containerapp update -n ${{ env.CONTAINER_APP_NAME }} -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.PROJECT_NAME_FOR_DOCKER }}:${{ github.sha }} --registry-login-server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --registry-username  ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }} --debug
