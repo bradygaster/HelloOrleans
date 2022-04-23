@@ -47,15 +47,18 @@ jobs:
       with:
         creds: ${{ secrets.silo_SPN }}
 
-    - name: Deploy to containerapp
+    - name: Installing Container Apps extension
       uses: azure/CLI@v1
       with:
         inlineScript: >
           echo "Installing containerapp extension"
+          az extension add --name containerapp --yes
 
-          az extension add --source https://workerappscliextension.blob.core.windows.net/azure-cli-extension/containerapp-0.3.1-py2.py3-none-any.whl --yes
-
-          echo "Starting Deploying"
+    - name: Deploy Silo
+      uses: azure/CLI@v1
+      with:
+        inlineScript: >
+          echo "Deploying Silo"
 
           az containerapp update --name ${{ env.CONTAINER_APP_NAME }} --resource-group ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.PROJECT_NAME_FOR_DOCKER }}:${{ github.sha }} --registry-login-server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --registry-username  ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }} --debug
 
