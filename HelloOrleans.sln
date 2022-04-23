@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32324.85
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.Abstractions", "HelloOrleans.Abstractions\HelloOrleans.Abstractions.csproj", "{BB0E25A1-AEF0-4420-8C7C-1711B67A54F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.Grains", "HelloOrleans.Grains\HelloOrleans.Grains.csproj", "{6E80BDEB-9652-49A6-AD28-F996BA5182B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.Silo", "HelloOrleans.Silo\HelloOrleans.Silo.csproj", "{6E7B724F-190B-443F-9151-084DC19B1A52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.Dashboard", "HelloOrleans.Dashboard\HelloOrleans.Dashboard.csproj", "{950FDD3F-2961-4C83-A316-12C278B53A9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.Client", "HelloOrleans.Client\HelloOrleans.Client.csproj", "{EF77CBA3-8A20-4228-ABE3-A8C98FE44B3C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB0E25A1-AEF0-4420-8C7C-1711B67A54F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB0E25A1-AEF0-4420-8C7C-1711B67A54F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB0E25A1-AEF0-4420-8C7C-1711B67A54F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB0E25A1-AEF0-4420-8C7C-1711B67A54F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E80BDEB-9652-49A6-AD28-F996BA5182B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E80BDEB-9652-49A6-AD28-F996BA5182B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E80BDEB-9652-49A6-AD28-F996BA5182B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E80BDEB-9652-49A6-AD28-F996BA5182B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E7B724F-190B-443F-9151-084DC19B1A52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E7B724F-190B-443F-9151-084DC19B1A52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E7B724F-190B-443F-9151-084DC19B1A52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E7B724F-190B-443F-9151-084DC19B1A52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{950FDD3F-2961-4C83-A316-12C278B53A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{950FDD3F-2961-4C83-A316-12C278B53A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{950FDD3F-2961-4C83-A316-12C278B53A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{950FDD3F-2961-4C83-A316-12C278B53A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF77CBA3-8A20-4228-ABE3-A8C98FE44B3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF77CBA3-8A20-4228-ABE3-A8C98FE44B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF77CBA3-8A20-4228-ABE3-A8C98FE44B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF77CBA3-8A20-4228-ABE3-A8C98FE44B3C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7EAD99FB-C478-4BB6-B652-0075D55BF04E}
+	EndGlobalSection
+EndGlobal
