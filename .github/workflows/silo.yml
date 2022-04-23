@@ -5,12 +5,10 @@ on:
     branches:
     - main
 env:
-  CONTAINER_APP_CONTAINER_NAME: silo
-  CONTAINER_APP_NAME: silo
   CONTAINER_APP_RESOURCE_GROUP_NAME: bradyg-HelloOrleans
   CONTAINER_REGISTRY_LOGIN_SERVER: helloorleansregistry.azurecr.io
   DOCKER_FILE_PATH: HelloOrleans.Silo/Dockerfile
-  PROJECT_NAME_FOR_DOCKER: helloorleanssilo
+  SILO_IMAGE_NAME: helloorleanssilo
 
 jobs:
   build:
@@ -34,7 +32,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.PROJECT_NAME_FOR_DOCKER }}:${{ github.sha }}
+        tags: ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.SILO_IMAGE_NAME }}:${{ github.sha }}
         file: ${{ env.DOCKER_FILE_PATH }}
 
   deploy:
@@ -62,12 +60,10 @@ jobs:
       with:
         inlineScript: >
           echo "Deploying Silo"
+          
+          az containerapp registry set -n silo -g ${{ secrets.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }} --debug
 
-          az config set extension.use_dynamic_install=yes_without_prompt
-
-          az extension add --name containerapp --yes
-
-          az containerapp update -n ${{ env.CONTAINER_APP_NAME }} -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.PROJECT_NAME_FOR_DOCKER }}:${{ github.sha }} --registry-login-server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --registry-username  ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }} --debug
+          az containerapp update -n silo -g ${{ secrets.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.SILO_IMAGE_NAME }}:${{ github.sha }} --debug
 
     - name: logout
       run: >
