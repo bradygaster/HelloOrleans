@@ -18,7 +18,7 @@ if(Debugger.IsAttached)
     await Task.Delay(5000);
 }
 
-await builder.ConnectClient();
+await builder.ConnectOrleansClient();
 
 var app = builder.Build();
 
@@ -73,7 +73,7 @@ app.Run();
 // extension class that sets the Orleans client up and connects it to the cluster
 public static class WebApplicationBuilderOrleansClientExtension
 {
-    public static async Task<WebApplicationBuilder> ConnectClient(this WebApplicationBuilder builder)
+    public static async Task<WebApplicationBuilder> ConnectOrleansClient(this WebApplicationBuilder builder)
     {
         var clientBuilder = new ClientBuilder()
             .Configure<ClusterOptions>(options =>
