@@ -20,7 +20,7 @@ builder.Host.UseOrleans(siloBuilder =>
         .ConfigureEndpoints(siloPort: 11_112, gatewayPort: 30_001)
         .UseAzureStorageClustering(options => options.ConfigureTableServiceClient(builder.Configuration.GetValue<string>("StorageConnectionString")))
         .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(HelloGrain).Assembly).WithReferences())
-        .UseDashboard()
+        .UseDashboard(config => config.HideTrace = true)
         ;
 });
 
