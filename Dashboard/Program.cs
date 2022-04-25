@@ -1,4 +1,4 @@
-using HelloOrleans.Grains;
+using Grains;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
@@ -20,7 +20,7 @@ builder.Host.UseOrleans(siloBuilder =>
         .ConfigureEndpoints(siloPort: 11_112, gatewayPort: 30_001)
         .UseAzureStorageClustering(options => options.ConfigureTableServiceClient(builder.Configuration.GetValue<string>("StorageConnectionString")))
         .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(HelloGrain).Assembly).WithReferences())
-        .UseDashboard(config => config.HideTrace = true)
+        .UseDashboard(config => config.HideTrace = !string.IsNullOrEmpty(builder.Configuration.GetValue<string>("HideTrace")) ? builder.Configuration.GetValue<bool>("HideTrace") : true)
         ;
 });
 

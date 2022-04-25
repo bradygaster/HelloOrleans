@@ -1,7 +1,7 @@
-﻿using HelloOrleans.Abstractions;
+﻿using Abstractions;
 using Orleans;
 
-namespace HelloOrleans.Grains
+namespace Grains
 {
     public class HelloGrain : Grain, IHelloGrain
     {

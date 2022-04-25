@@ -1,4 +1,4 @@
-using HelloOrleans.Abstractions;
+using Abstractions;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
@@ -18,7 +18,7 @@ if(Debugger.IsAttached)
     await Task.Delay(5000);
 }
 
-await builder.ConnectOrleansClient();
+builder.Services.ConnectOrleansClient();
 
 var app = builder.Build();
 
@@ -31,6 +31,11 @@ if (app.Environment.IsDevelopment())
 
 // reference the grain factory for the cluster
 var _clusterClient = app.Services.GetRequiredService<IClusterClient>();
+
+// connect to the orleans cluster
+Console.WriteLine("Client about to connect to silo host \n");
+await _clusterClient.Connect();
+Console.WriteLine("Client successfully connected to silo host \n");
 
 // -------------------
 // map the API methods
@@ -71,9 +76,9 @@ app.MapGet("/hello/{grain}", async (string grain) => {
 app.Run();
 
 // extension class that sets the Orleans client up and connects it to the cluster
-public static class WebApplicationBuilderOrleansClientExtension
+public static class ServiceCollectionOrleansClientExtension
 {
-    public static async Task<WebApplicationBuilder> ConnectOrleansClient(this WebApplicationBuilder builder)
+    public static IServiceCollection ConnectOrleansClient(this IServiceCollection services)
     {
         var clientBuilder = new ClientBuilder()
             .Configure<ClusterOptions>(options =>
@@ -82,14 +87,11 @@ public static class WebApplicationBuilderOrleansClientExtension
                 options.ServiceId = "Service";
             })
             .ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Warning).AddJsonConsole())
-            .UseAzureStorageClustering(options => options.ConfigureTableServiceClient(builder.Configuration.GetValue<string>("StorageConnectionString")));
+            .UseAzureStorageClustering(options => options.ConfigureTableServiceClient(services.BuildServiceProvider().GetRequiredService<IConfiguration>().GetValue<string>("StorageConnectionString")));
 
-        Console.WriteLine("Client about to connect to silo host \n");
         var client = clientBuilder.Build();
-        await client.Connect();
-        Console.WriteLine("Client successfully connected to silo host \n");
-        builder.Services.AddSingleton(client);
-        return builder;
+        services.AddSingleton(client);
+        return services;
     }
 }
 

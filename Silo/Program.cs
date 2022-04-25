@@ -1,4 +1,3 @@
-using HelloOrleans.Grains;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;

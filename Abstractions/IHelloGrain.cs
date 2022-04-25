@@ -1,6 +1,6 @@
 ﻿using Orleans;
 
-namespace HelloOrleans.Abstractions
+namespace Abstractions
 {
     public interface IHelloGrain : IGrainWithStringKey
     {

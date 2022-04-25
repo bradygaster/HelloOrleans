@@ -1,4 +1,4 @@
-﻿{
+{
   "profiles": {
     "HelloOrleans.Dashboard": {
       "commandName": "Project",
@@ -9,6 +9,12 @@
       },
       "applicationUrl": "http://localhost:5001",
       "dotnetRunMessages": true
+    },
+    "Docker (1)": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/",
+      "publishAllPorts": true
     }
   }
 }
