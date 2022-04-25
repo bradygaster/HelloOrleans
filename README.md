@@ -27,6 +27,10 @@ Create a new GitHub secret in your fork of this repository named `AzureSPN`. Pas
 
 Create a new local branch named `provision`.
 
+```bash
+git checkout -b provision
+```
+
 Open the `.github/workflows/provision.yml` file and find this section:
 
 ```yaml
