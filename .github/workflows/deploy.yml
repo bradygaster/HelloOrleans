@@ -3,10 +3,11 @@ name: Build and deploy .NET application to Container App silo
 on:
   push:
     branches:
-    - main
+    - deploy
+
 env:
-  CONTAINER_APP_RESOURCE_GROUP_NAME: bradyg-HelloOrleans
-  CONTAINER_REGISTRY_LOGIN_SERVER: helloorleansregistry.azurecr.io
+  CONTAINER_APP_RESOURCE_GROUP_NAME: orleansoncontainerapps
+  CONTAINER_REGISTRY_LOGIN_SERVER: orleansoncontainerapps.azurecr.io
 
   SILO_DOCKER_FILE_PATH: Silo/Dockerfile
   SILO_IMAGE_NAME: silo
@@ -74,7 +75,7 @@ jobs:
     - name: Azure Login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.silo_SPN }}
+        creds: ${{ secrets.AzureSPN }}
 
     - name: Installing Container Apps extension
       uses: azure/CLI@v1
