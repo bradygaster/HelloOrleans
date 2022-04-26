@@ -113,9 +113,9 @@ jobs:
         inlineScript: >
           echo "Deploying Minimal API Client"
           
-          az containerapp registry set -n minimalclient -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }} --debug
+          az containerapp registry set -n minimalapiclient -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }} --debug
 
-          az containerapp update -n minimalclient -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.MINIMAL_CLIENT_IMAGE_NAME }}:${{ github.sha }} --debug
+          az containerapp update -n minimalapiclient -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.MINIMAL_CLIENT_IMAGE_NAME }}:${{ github.sha }} --debug
 
     - name: Deploy Worker Service Client
       uses: azure/CLI@v1
