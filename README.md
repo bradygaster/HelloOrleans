@@ -64,7 +64,7 @@ az ad sp create-for-rbac --sdk-auth --role contributor --scopes /subscription/<y
 
 4. Create a new GitHub secret in your fork of this repository named `AzureSPN`. Paste the JSON returned from the Azure CLI into this new secret. Once you've done this you'll see the secret in your fork of the repository.
 
-   ![image-20220425234015272](docs\media\secrets.png)
+   ![image-20220425234015272](docs/media/secrets.png)
 
 > Note: Never save the JSON to disk, for it will enable anyone who obtains this JSON code to create or edit resources in your Azure subscription. 
 
