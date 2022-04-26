@@ -36,7 +36,7 @@ module storage 'storage.bicep' = {
   }
 }
 
-module silo 'container-app.bicep' = {
+module silo 'container-app-no-ingress.bicep' = {
   name: 'silo'
   params: {
     location: location
@@ -45,13 +45,12 @@ module silo 'container-app.bicep' = {
     registry: acr.name
     registryPassword: acr.listCredentials().passwords[0].value
     registryUsername: acr.listCredentials().username
-    allowExternalIngress: false
     maxReplicas: 1
     envVars : shared_config
   }
 }
 
-module dashboard 'container-app.bicep' = {
+module dashboard 'container-app-with-ingress.bicep' = {
   name: 'dashboard'
   params: {
     location: location
@@ -67,7 +66,7 @@ module dashboard 'container-app.bicep' = {
   }
 }
 
-module minimalapiclient 'container-app.bicep' = {
+module minimalapiclient 'container-app-with-ingress.bicep' = {
   name: 'minimalapiclient'
   params: {
     location: location
@@ -83,7 +82,7 @@ module minimalapiclient 'container-app.bicep' = {
   }
 }
 
-module workerserviceclient 'container-app.bicep' = {
+module workerserviceclient 'container-app-no-ingress.bicep' = {
   name: 'workerserviceclient'
   params: {
     location: location
@@ -92,7 +91,6 @@ module workerserviceclient 'container-app.bicep' = {
     registry: acr.name
     registryPassword: acr.listCredentials().passwords[0].value
     registryUsername: acr.listCredentials().username
-    allowExternalIngress: false
     maxReplicas: 1
     envVars : shared_config
   }
