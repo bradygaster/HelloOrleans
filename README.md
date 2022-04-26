@@ -47,9 +47,11 @@ env:
 
 Change the `RESOURCE_GROUP_NAME` variable to be what you'd like your Azure resource group to be named. 
 
+> Note: The `RESOURCE_GROUP_NAME` variable should be all lowercase letters and digits only.
+
 ```yaml
 env:
-  RESOURCE_GROUP_NAME: bradyg-sampleapp
+  RESOURCE_GROUP_NAME: orleansonaca
   REGION: eastus
 ```
 
@@ -75,8 +77,8 @@ Customize these values so they match the Azure resource names you just created.
 
 ```yaml
 env:
-  CONTAINER_APP_RESOURCE_GROUP_NAME: orleansonaca01
-  CONTAINER_REGISTRY_LOGIN_SERVER: orleansonaca01acr.azurecr.io
+  CONTAINER_APP_RESOURCE_GROUP_NAME: orleansonaca
+  CONTAINER_REGISTRY_LOGIN_SERVER: orleansonacaacr.azurecr.io
 ```
 
 Set the `helloorleansregistry_USERNAME_FFFF` and `helloorleansregistry_PASSWORD_FFFF` GitHub secrets to match the Azure Container Registry's username and password. 
