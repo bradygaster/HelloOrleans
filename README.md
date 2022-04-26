@@ -7,17 +7,23 @@ Fork this repository to your own GitHub organization.
 Create an Azure Service Principal
 
 ```bash
-az ad sp create-for-rbac --role contributor --scopes /subscription/<your-subscription-id>
+az ad sp create-for-rbac --sdk-auth --role contributor --scopes /subscription/<your-subscription-id>
 ```
 
 Copy the resultant JSON written to the screen. 
 
 ```json
 {
-  "appId": "74xx305-xxxx-xxxx-xxxx-7076xx25exx8",
-  "displayName": "azure-cli-xxxx-xx-xx-xx-xx-xx",
-  "password": "secret_pwd-42please_dontshare",
-  "tenant": "72f988bf-xxxx-xxxx-xxxx-2dxxd011xxxx"
+  "clientId": "",
+  "clientSecret": "",
+  "subscriptionId": "",
+  "tenantId": "",
+  "activeDirectoryEndpointUrl": "https://login.microsoftonline.com/",
+  "resourceManagerEndpointUrl": "https://brazilus.management.azure.com",
+  "activeDirectoryGraphResourceId": "https://graph.windows.net/",
+  "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
+  "galleryEndpointUrl": "https://gallery.azure.com",
+  "managementEndpointUrl": "https://management.core.windows.net"
 }
 ```
 
