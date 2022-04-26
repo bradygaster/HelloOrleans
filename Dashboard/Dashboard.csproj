@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Abstractions\Abstractions.csproj" />
-    <ProjectReference Include="..\Grains\Grains.csproj" />
   </ItemGroup>
 
 </Project>

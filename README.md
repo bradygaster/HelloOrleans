@@ -103,6 +103,8 @@ env:
 
 > Note: Azure Container Apps isn't available in all regions yet. Please use `eastus` or `canadacentral`. 
 
+
+
 ### Provisioning directly from GitHub
 
 The easiest way to provision your Azure resources is to directly edit the `.github/workflows/provision.yml` file directly in your browser.
@@ -137,6 +139,8 @@ When the `provision` step completes, you'll see a few new Azure resources in you
 
 ![Azure resources created.](docs/media/azure-resources.png)
 
+
+
 Here's a breakdown of each of these services and their purpose in the app:
 
 | Resource            | Resource Type                                                | Purpose                                                      |
@@ -151,11 +155,13 @@ Here's a breakdown of each of these services and their purpose in the app:
 | orleansonacalogs    | Log Analytics Workspace                                      | This is where I can perform custom [Kusto](https://docs.microsoft.com/azure/data-explorer/kusto/query/) queries against the application telemetry, and time-sliced views of how the app is performing and scaling over time in the environment. |
 | orleansonacastrg    | Azure Storage Account                                        | Microsoft Orleans has a variety of different [Persistence](https://docs.microsoft.com/dotnet/orleans/grains/grain-persistence/) providers, the most popular and easiest-to-use of which is the [Azure Storage provider](https://docs.microsoft.com/dotnet/orleans/grains/grain-persistence/azure-storage). The clever [Orleans persistence APIs](https://docs.microsoft.com/dotnet/orleans/grains/grain-persistence/#api) allow you to spend more time innovating how the objects in your app work together rather than the innerworkings of the queries persisting their state. Orleans handles your object state for you securely, performantly, and transactionally. |
 
+Once the `provision` process completes, you can create a second branch in the repository named `deploy`, which you'll use to deploy code into the environment each time you're ready to update it. 
+
 
 
 ## Deploy code into the environment
 
-Once the `provision` process completes, you can create a second branch in the repository named `deploy`, which you'll use to deploy code into the environment each time you're ready to update it. The simplest way to do this is right in your browser, by browsing to the `.github/workflows/deploy.yml` file and clicking the pencil. 
+The simplest way to do this is right in your browser, by browsing to the `.github/workflows/deploy.yml` file and clicking the pencil. 
 
 ![Edit the deploy.yml file.](docs/media/edit-deploy.png)
 
@@ -163,7 +169,7 @@ Once the `provision` process completes, you can create a second branch in the re
 
 
 
-Change the resource group name and ACR registry name environment variables to match the resource group and ACR resource name from the provision step. Then, commit the change to a new branch named `deploy` right in your browser. 
+Change the resource group name and Azure Container Registry name environment variables to match the resource group and ACR resource name from the provision step. Then, commit the change to a new branch named `deploy` right in your browser. 
 
 ![Committing the deployment changes.](docs/media/commit-deploy.png)
 
@@ -203,15 +209,24 @@ Now that the resources have been deployed and the code is running in the Azure C
 
 ## View the Orleans Dashboard
 
-Go back into the Azure portal, and click on the `dashboard` Container App to open it up in the `Overview` blade in the portal. One open, click the `Application URL` link to open the dashboard in your browser. 
-
-
-
-The Orleans Dashboard opens up, presenting a quick view of all the Orleans Grains in the system, most of which are being called from the Worker Service client. 
+Go back into the Azure portal, and click on the `dashboard` Container App to open it up in the `Overview` blade in the portal. One open, click the `Application URL` link to open the dashboard in your browser. The Orleans Dashboard opens up, presenting a quick view of all the Orleans Grains in the system, most of which are being called from the Worker Service client. 
 
 ![image-20220426010353733](docs/media/orleans-dashboard.png)
 
-19. You can customize what you see in the dashboard, filtering out only the grains you want to see. By turning off the Dashboard and System Grains, you can set the dashboard's view such that only those objects in your application domain are visible. 
+
+
+You can customize what you see in the dashboard, filtering out only the grains you want to see. By turning off the Dashboard and System Grains, you can set the dashboard's view such that only those objects in your application domain are visible. 
 
 ![Dashboard preferences](docs/media/preferences.png)
 
+
+
+Now, the Orleans Dashboard will show you only the Grains relevant to your app; the system and dashboard grains are now hidden (and this second screen shot shows how the dashboard looks in dark mode, so you have an option to see both views). 
+
+![Simplified Dashboard view](docs/media/updated-dashboard.png)
+
+
+
+Remember that earlier when we described each service, we mentioned the `workerserviceclient` container's job was to simulate 100 physical device peers that constantly send data into the cluster's back end. That's why there are 100 total activations; since there is 1 `workerserviceclient` container running in the environment and each worker represents 100 devices, there are 100 grains in the cluster, and they are all of type `SensorTwinGrain`. Looking at the Grains tab in the dashboard, you can see how Orleans intelligently distributes the grain instances across the two silos - one being our actual silo, the other the Orleans Dashboard. 
+
+![Grains distributed across the silo and dashboard instances.](docs/media/grain-distribution.png)
