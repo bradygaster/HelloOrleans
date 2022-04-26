@@ -117,7 +117,11 @@ git push origin provision
 
 10. When the `provision` step completes, you'll see a few new Azure resources in your subscription.
 
-    
+![image-20220426000142888](docs/media/azure-resources.png)
+
+
+
+## Deploy code into the environment
 
 Once the `provision` process completes, you can create a second branch in the repository named `deploy`, which you'll use to deploy code into the environment each time you're ready to update it. 
 
@@ -129,15 +133,13 @@ env:
   CONTAINER_REGISTRY_LOGIN_SERVER: orleansoncontainerapps.azurecr.io
 ```
 
-Customize these values so they match the Azure resource names you just created.
+11. Customize these values so they match the Azure resource names you just created.
 
 ```yaml
 env:
   CONTAINER_APP_RESOURCE_GROUP_NAME: orleansonaca
   CONTAINER_REGISTRY_LOGIN_SERVER: orleansonacaacr.azurecr.io
 ```
-
-Set the `helloorleansregistry_USERNAME_FFFF` and `helloorleansregistry_PASSWORD_FFFF` GitHub secrets to match the Azure Container Registry's username and password. 
 
 Commit your changes and push them to the `deploy` branch.
 
@@ -148,4 +150,6 @@ git push origin deploy
 ```
 
 Then browse to the `Actions` tab in your GitHub repository to see if the `deploy` CI/CD process started.
+
+![image-20220426001456961](docs/media/deploy.png)
 
