@@ -6,7 +6,7 @@ var shared_config = [
     value: 'Development'
   }
   {
-    name: 'ORLEANS_AZURE_STORAGE_CONNECTION_STRING'
+    name: 'StorageConnectionString'
     value: format('DefaultEndpointsProtocol=https;AccountName=${storage.outputs.storageName};AccountKey=${storage.outputs.accountKey};EndpointSuffix=core.windows.net')
   }
 ]
