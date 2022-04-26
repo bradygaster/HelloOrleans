@@ -62,3 +62,32 @@ git push origin provision
 ```
 
 Then browse to the `Actions` tab in your GitHub repository to see if the `provision` CI/CD process started.
+
+Once the `provision` process completes, create a local branch named `deploy`. Find the `deploy.yml` GitHub workflow file in the local repository, specifically this code which sets the resource group and Azure Container Registry variable names. 
+
+```yaml
+env:
+  CONTAINER_APP_RESOURCE_GROUP_NAME: orleansoncontainerapps
+  CONTAINER_REGISTRY_LOGIN_SERVER: orleansoncontainerapps.azurecr.io
+```
+
+Customize these values so they match the Azure resource names you just created.
+
+```yaml
+env:
+  CONTAINER_APP_RESOURCE_GROUP_NAME: orleansonaca01
+  CONTAINER_REGISTRY_LOGIN_SERVER: orleansonaca01acr.azurecr.io
+```
+
+Set the `helloorleansregistry_USERNAME_FFFF` and `helloorleansregistry_PASSWORD_FFFF` GitHub secrets to match the Azure Container Registry's username and password. 
+
+Commit your changes and push them to the `deploy` branch.
+
+```bash
+git add .
+git commit -m 'deploying'
+git push origin deploy
+```
+
+Then browse to the `Actions` tab in your GitHub repository to see if the `deploy` CI/CD process started.
+
