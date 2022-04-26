@@ -227,6 +227,11 @@ Now, the Orleans Dashboard will show you only the Grains relevant to your app; t
 
 
 
-Remember that earlier when we described each service, we mentioned the `workerserviceclient` container's job was to simulate 100 physical device peers that constantly send data into the cluster's back end. That's why there are 100 total activations; since there is 1 `workerserviceclient` container running in the environment and each worker represents 100 devices, there are 100 grains in the cluster, and they are all of type `SensorTwinGrain`. Looking at the Grains tab in the dashboard, you can see how Orleans intelligently distributes the grain instances across the two silos - one being our actual silo, the other the Orleans Dashboard. 
+Remember that earlier when we described each service, we mentioned the `workerserviceclient` container's job was to simulate 100 physical device peers that constantly send data into the cluster's back end. That's why there are 100 total activations; since there is 1 `workerserviceclient` container running in the environment and each worker represents 100 devices, there are 100 grains in the cluster, and they are all of type `SensorTwinGrain`. Looking at the Grains tab in the dashboard, you can see how Orleans creates all of these instances in the `silo` container, and none in the `dashboard` container; this is because the `dashboard` project lacks a reference to the `Grains` project, so none of the Grain classes are instantiated in the `dashboard`. This enables us to turn the dashboard container on and off when we need to get a snapshot of what's happening in the cluster. 
 
-![Grains distributed across the silo and dashboard instances.](docs/media/grain-distribution.png)
+![Grain distribution](docs/media/grain-distribution.png)
+
+
+
+Azure Container Apps offers great scaling capabilities, that when coupled with Orleans, enable you to scale effortlessly up and down on demand. The next section will introduce you to these features and how they work together to enable scalable solutions with Orleans and Azure Container Apps. 
+
