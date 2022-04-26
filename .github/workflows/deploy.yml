@@ -93,9 +93,9 @@ jobs:
         inlineScript: >
           echo "Deploying Silo"
           
-          az containerapp registry set -n silo -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }} --debug
+          az containerapp registry set -n silo -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }}
 
-          az containerapp update -n silo -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.SILO_IMAGE_NAME }}:${{ github.sha }} --debug
+          az containerapp update -n silo -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.SILO_IMAGE_NAME }}:${{ github.sha }}
 
     - name: Deploy Dashboard
       uses: azure/CLI@v1
@@ -103,9 +103,9 @@ jobs:
         inlineScript: >
           echo "Deploying Dashboard"
           
-          az containerapp registry set -n dashboard -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }} --debug
+          az containerapp registry set -n dashboard -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }}
 
-          az containerapp update -n dashboard -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.DASHBOARD_IMAGE_NAME }}:${{ github.sha }} --debug
+          az containerapp update -n dashboard -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.DASHBOARD_IMAGE_NAME }}:${{ github.sha }}
 
     - name: Deploy Minimal API Client
       uses: azure/CLI@v1
@@ -113,9 +113,9 @@ jobs:
         inlineScript: >
           echo "Deploying Minimal API Client"
           
-          az containerapp registry set -n minimalapiclient -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }} --debug
+          az containerapp registry set -n minimalapiclient -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }}
 
-          az containerapp update -n minimalapiclient -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.MINIMAL_CLIENT_IMAGE_NAME }}:${{ github.sha }} --debug
+          az containerapp update -n minimalapiclient -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.MINIMAL_CLIENT_IMAGE_NAME }}:${{ github.sha }}
 
     - name: Deploy Worker Service Client
       uses: azure/CLI@v1
@@ -123,9 +123,9 @@ jobs:
         inlineScript: >
           echo "Deploying Worker Service Client"
           
-          az containerapp registry set -n workerserviceclient -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }} --debug
+          az containerapp registry set -n workerserviceclient -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} --server ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.helloorleansregistry_USERNAME_FFFF }} --password ${{ secrets.helloorleansregistry_PASSWORD_FFFF }}
 
-          az containerapp update -n workerserviceclient -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.WORKERSERVICE_CLIENT_IMAGE_NAME }}:${{ github.sha }} --debug
+          az containerapp update -n workerserviceclient -g ${{ env.CONTAINER_APP_RESOURCE_GROUP_NAME }} -i ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/${{ env.WORKERSERVICE_CLIENT_IMAGE_NAME }}:${{ github.sha }}
 
     - name: logout
       run: >
