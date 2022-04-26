@@ -149,7 +149,34 @@ git commit -m 'deploying'
 git push origin deploy
 ```
 
-13. Then browse to the `Actions` tab in your GitHub repository to see if the `deploy` CI/CD process started.
+13. Then browse to the `Actions` tab in your GitHub repository to see if the `build` CI/CD process started.
 
 ![image-20220426001456961](docs/media/deploy.png)
+
+14. Once `build` completes, your container images will be in your ACR repository. Then, `deploy` begins. 
+
+![image-20220426005323741](docs/media/deploy-step2.png)
+
+15. Each pf the 4 images are deployed into individual Azure Container Apps, right from GitHub Actions. 
+
+![image-20220426005619667](docs/media/deploy-step3.png)
+
+
+
+## View the Orleans Dashboard
+
+16. If you're watching the `deploy` step in GitHub Actions, you'll know the moment all the container apps have been deployed into the environment. 
+
+![image-20220426005912474](docs/media/deploy-complete.png)
+
+17. Go back into the Azure portal, and click on the `dashboard` Container App to open it up in the `Overview` blade in the portal. One open, click the `Application URL` link to open the dashboard in your browser. 
+
+
+18. The Orleans Dashboard opens up, presenting a quick view of all the Orleans Grains in the system, most of which are being called from the Worker Service client. 
+
+![image-20220426010353733](docs/media/orleans-dashboard.png)
+
+19. You can customize what you see in the dashboard, filtering out only the grains you want to see. 
+
+![image-20220426013325296](docs/media/preferences.png)
 
