@@ -6,7 +6,7 @@ on:
     - provision
 
 env:
-  RESOURCE_GROUP_NAME: orleansonaca01
+  RESOURCE_GROUP_NAME: orleansonaca03
   REGION: eastus
   
 jobs:
