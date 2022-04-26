@@ -6,13 +6,13 @@ var shared_config = [
     value: 'Development'
   }
   {
-    name: 'ORLEANS_AZURE_STORAGE_CONNECTION_STRING'
+    name: 'StorageConnectionString'
     value: format('DefaultEndpointsProtocol=https;AccountName=${storage.outputs.storageName};AccountKey=${storage.outputs.accountKey};EndpointSuffix=core.windows.net')
   }
 ]
 
 resource acr 'Microsoft.ContainerRegistry/registries@2021-09-01' = {
-  name: toLower('${resourceGroup().name}strg')
+  name: toLower('${resourceGroup().name}acr')
   location: location
   sku: {
     name: 'Basic'

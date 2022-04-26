@@ -6,7 +6,7 @@ on:
     - provision
 
 env:
-  RESOURCE_GROUP_NAME: orleansoncontainerapps
+  RESOURCE_GROUP_NAME: orleansonaca03
   REGION: eastus
   
 jobs:
@@ -15,6 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: Checkout to the branch
+      uses: actions/checkout@v2
+
     - name: Azure Login
       uses: azure/login@v1
       with:
@@ -26,7 +30,7 @@ jobs:
         inlineScript: >
           echo "Creating resource group in Azure"
 
-          az group create -l $location -n ${{ env.RESOURCE_GROUP_NAME }}
+          az group create -l ${{ env.REGION }} -n ${{ env.RESOURCE_GROUP_NAME }}
 
     - name: Creating resources
       uses: azure/CLI@v1
@@ -34,7 +38,7 @@ jobs:
         inlineScript: >
           echo "Creating resources"
 
-          az deployment group create --resource-group ${{ env.RESOURCE_GROUP_NAME }} --template-file 'Azure/main.bicep'
+          az deployment group create --resource-group ${{ env.RESOURCE_GROUP_NAME }} --template-file '/github/workspace/Azure/main.bicep'
 
     - name: logout
       run: >
