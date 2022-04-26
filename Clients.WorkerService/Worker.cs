@@ -20,28 +20,35 @@ namespace Clients.WorkerService
             await base.StartAsync(cancellationToken);
         }
 
+        public override async Task StopAsync(CancellationToken cancellationToken)
+        {
+            await OrleansClusterClient.DisposeAsync();
+            await base.StopAsync(cancellationToken);
+        }
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var rnd = new Random();
             var randomDeviceIDs = new List<string>();
-            for (int i = 0; i < 100; i++)
+
+            for (int i = 1; i <= 100; i++)
             {
-                randomDeviceIDs.Add(Path.GetFileNameWithoutExtension(Path.GetRandomFileName()));
+                randomDeviceIDs.Add($"device{i.ToString().PadLeft(3,'0')}-{Environment.MachineName}");
             }
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                var randomDeviceId = randomDeviceIDs[rnd.Next(0, 99)];
+                var randomDeviceId = randomDeviceIDs[rnd.Next(1, 100)];
                 var grain = OrleansClusterClient.GetGrain<ISensorTwinGrain>(randomDeviceId);
+
                 await grain.ReceiveSensorState(new SensorState
                 {
                     SensorId = randomDeviceId,
                     TimeStamp = DateTime.Now,
                     Type = SensorType.Unspecified,
-                    Value = rnd.Next(0, 100)
+                    Value = rnd.Next(1, 100)
                 });
 
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(100, stoppingToken);
             }
         }

@@ -141,7 +141,7 @@ env:
   CONTAINER_REGISTRY_LOGIN_SERVER: orleansonacaacr.azurecr.io
 ```
 
-Commit your changes and push them to the `deploy` branch.
+12. Commit your changes and push them to the `deploy` branch.
 
 ```bash
 git add .
@@ -149,7 +149,7 @@ git commit -m 'deploying'
 git push origin deploy
 ```
 
-Then browse to the `Actions` tab in your GitHub repository to see if the `deploy` CI/CD process started.
+13. Then browse to the `Actions` tab in your GitHub repository to see if the `deploy` CI/CD process started.
 
 ![image-20220426001456961](docs/media/deploy.png)
 
