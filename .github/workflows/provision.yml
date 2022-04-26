@@ -26,7 +26,7 @@ jobs:
         inlineScript: >
           echo "Creating resource group in Azure"
 
-          az group create -l $location -n ${{ env.RESOURCE_GROUP_NAME }}
+          az group create -l ${{ env.REGION }} -n ${{ env.RESOURCE_GROUP_NAME }}
 
     - name: Creating resources
       uses: azure/CLI@v1
