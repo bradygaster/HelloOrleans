@@ -77,6 +77,16 @@ jobs:
       with:
         creds: ${{ secrets.AzureSPN }}
 
+    - name: Login to ACR
+      run: |
+        set -euo pipefail
+        # see https://cloudarchitected.com/2021/09/logging-into-acr-in-github-actions/
+        # see https://github.com/Azure/acr/blob/main/docs/AAD-OAuth.md#calling-post-oauth2exchange-to-get-an-acr-refresh-token
+        access_token=$(az account get-access-token --query accessToken -o tsv)
+        refresh_token=$(curl https://${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}/oauth2/exchange -v -d "grant_type=access_token&service=${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}&access_token=$access_token" | jq -r .refresh_token)
+        # The null GUID 0000... tells the container registry that this is an ACR refresh token during the login flow
+        docker login -u 00000000-0000-0000-0000-000000000000 --password-stdin ${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} <<< "$refresh_token"
+      
     - name: Installing Container Apps extension
       uses: azure/CLI@v1
       with:
