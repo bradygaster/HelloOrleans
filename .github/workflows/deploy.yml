@@ -6,8 +6,8 @@ on:
     - deploy
 
 env:
-  CONTAINER_APP_RESOURCE_GROUP_NAME: orleansonaca01
-  CONTAINER_REGISTRY_LOGIN_SERVER: orleansonaca01.azurecr.io
+  CONTAINER_APP_RESOURCE_GROUP_NAME: orleansonaca02
+  CONTAINER_REGISTRY_LOGIN_SERVER: orleansonaca02acr.azurecr.io
 
   SILO_DOCKER_FILE_PATH: Silo/Dockerfile
   SILO_IMAGE_NAME: silo

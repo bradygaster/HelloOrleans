@@ -76,7 +76,7 @@ Customize these values so they match the Azure resource names you just created.
 ```yaml
 env:
   CONTAINER_APP_RESOURCE_GROUP_NAME: orleansonaca01
-  CONTAINER_REGISTRY_LOGIN_SERVER: orleansonaca01.azurecr.io
+  CONTAINER_REGISTRY_LOGIN_SERVER: orleansonaca01acr.azurecr.io
 ```
 
 Set the `helloorleansregistry_USERNAME_FFFF` and `helloorleansregistry_PASSWORD_FFFF` GitHub secrets to match the Azure Container Registry's username and password. 
