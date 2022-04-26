@@ -34,7 +34,7 @@ jobs:
         inlineScript: >
           echo "Creating resources"
 
-          az deployment group create --resource-group ${{ env.RESOURCE_GROUP_NAME }} --template-file 'Azure/main.bicep'
+          az deployment group create --resource-group ${{ env.RESOURCE_GROUP_NAME }} --template-file '../../Azure/main.bicep'
 
     - name: logout
       run: >
