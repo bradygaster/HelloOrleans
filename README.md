@@ -205,8 +205,6 @@ After a few minutes these two steps will complete.
 
 Now that the resources have been deployed and the code is running in the Azure Container Environment, you can see how the app's running, scale it out, and perform some experiments to see how Orleans enables distributed processing in a cloud-native environment and how Azure Container Apps makes it easy to scale on demand. 
 
-
-
 ## View the Orleans Dashboard
 
 Go back into the Azure portal, and click on the `dashboard` Container App to open it up in the `Overview` blade in the portal. One open, click the `Application URL` link to open the dashboard in your browser. The Orleans Dashboard opens up, presenting a quick view of all the Orleans Grains in the system, most of which are being called from the Worker Service client. 
@@ -235,3 +233,17 @@ Remember that earlier when we described each service, we mentioned the `workerse
 
 Azure Container Apps offers great scaling capabilities, that when coupled with Orleans, enable you to scale effortlessly up and down on demand. The next section will introduce you to these features and how they work together to enable scalable solutions with Orleans and Azure Container Apps. 
 
+## Orleans Grain lifetimes
+
+In the example code, there are two Orleans Grain interfaces and implementations. One of these, the `SensorTwinGrain`, represents a canonical use-case for Orleans applications - IoT (Internet of Things) Digital Twin scenarios. Orleans' low latency is fantastic for these types of scenarios. In this phase of the tutorial, we'll demonstrate how Orleans automatically cleans up the Grains in the cluster's Silos when they go unused for a set period of time. 
+
+```csharp
+[CollectionAgeLimit(Minutes = 2)]
+public class SensorTwinGrain : Grain, ISensorTwinGrain
+{
+}
+```
+
+
+
+The `SensorTwinGrain` is decorated with CollectionAgeLimitAttribute](https://docs.microsoft.com/dotnet/api/orleans.configuration.collectionagelimitattribute?view=orleans-3.0), useful when you want to explicitly control how long a Grain is maintained in memory when it isn't actively being called by any other Grains in the cluster or by any clients. 

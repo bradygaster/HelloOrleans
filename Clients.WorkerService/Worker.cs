@@ -33,21 +33,25 @@ namespace Clients.WorkerService
 
             for (int i = 0; i < 100; i++)
             {
-                randomDeviceIDs.Add($"device{i.ToString().PadLeft(3,'0')}-{Environment.MachineName}");
+                randomDeviceIDs.Add($"device{i.ToString().PadLeft(3, '0')}-{rnd.Next(10000, 99999)}-{Environment.MachineName}");
             }
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                var randomDeviceId = randomDeviceIDs[rnd.Next(0, 100)];
-                var grain = OrleansClusterClient.GetGrain<ISensorTwinGrain>(randomDeviceId);
-
-                await grain.ReceiveSensorState(new SensorState
+                randomDeviceIDs.AsParallel().ForAll(async (deviceId) =>
                 {
-                    SensorId = randomDeviceId,
-                    TimeStamp = DateTime.Now,
-                    Type = SensorType.Unspecified,
-                    Value = rnd.Next(0, 100)
+                    var grain = OrleansClusterClient.GetGrain<ISensorTwinGrain>(deviceId);
+
+                    await grain.ReceiveSensorState(new SensorState
+                    {
+                        SensorId = deviceId,
+                        TimeStamp = DateTime.Now,
+                        Type = SensorType.Unspecified,
+                        Value = rnd.Next(0, 100)
+                    });
                 });
+
+                var randomDeviceId = randomDeviceIDs[rnd.Next(0, 100)];
 
                 await Task.Delay(100, stoppingToken);
             }

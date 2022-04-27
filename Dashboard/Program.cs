@@ -1,12 +1,23 @@
 using Abstractions;
+using Grains;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
+using Orleans.Runtime;
+using Orleans.Runtime.Placement;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseOrleans(siloBuilder =>
 {
+    builder.Services.AddSingletonNamedService<
+        PlacementStrategy, DontPlaceMeOnTheDashboardStrategy>(
+            nameof(DontPlaceMeOnTheDashboardSiloDirector));
+
+    builder.Services.AddSingletonKeyedService<
+        Type, IPlacementDirector, DontPlaceMeOnTheDashboardSiloDirector>(
+            typeof(DontPlaceMeOnTheDashboardStrategy));
+
     siloBuilder
         .Configure<ClusterOptions>(options =>
         {
@@ -19,8 +30,12 @@ builder.Host.UseOrleans(siloBuilder =>
         })
         .ConfigureEndpoints(siloPort: 11_112, gatewayPort: 30_001)
         .UseAzureStorageClustering(options => options.ConfigureTableServiceClient(builder.Configuration.GetValue<string>("StorageConnectionString")))
-        .UseDashboard(config => config.HideTrace = !string.IsNullOrEmpty(builder.Configuration.GetValue<string>("HideTrace")) ? builder.Configuration.GetValue<bool>("HideTrace") : true)
-        ;
+        .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(SensorTwinGrain).Assembly).WithReferences())
+        .UseDashboard(config => 
+            config.HideTrace = 
+                !string.IsNullOrEmpty(builder.Configuration.GetValue<string>("HideTrace")) 
+                    ? builder.Configuration.GetValue<bool>("HideTrace") 
+                    : true);
 });
 
 var app = builder.Build();
