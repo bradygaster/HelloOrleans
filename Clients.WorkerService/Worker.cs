@@ -38,7 +38,7 @@ namespace Clients.WorkerService
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                randomDeviceIDs.AsParallel().ForAll(async (deviceId) =>
+                await Parallel.ForEachAsync(randomDeviceIDs, async (deviceId, stoppingToken) =>
                 {
                     var grain = OrleansClusterClient.GetGrain<ISensorTwinGrain>(deviceId);
 
@@ -50,8 +50,6 @@ namespace Clients.WorkerService
                         Value = rnd.Next(0, 100)
                     });
                 });
-
-                var randomDeviceId = randomDeviceIDs[rnd.Next(0, 100)];
 
                 //await Task.Delay(100, stoppingToken);
             }
