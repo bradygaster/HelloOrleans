@@ -30,19 +30,20 @@ namespace Clients.WorkerService
         {
             var rnd = new Random();
             var randomDeviceIDs = new List<string>();
+            var randomDevices = new Dictionary<string, ISensorTwinGrain>();
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 256; i++)
             {
-                randomDeviceIDs.Add($"device{i.ToString().PadLeft(3, '0')}-{rnd.Next(10000, 99999)}-{Environment.MachineName}");
+                var key = $"device{i.ToString().PadLeft(3, '0')}-{rnd.Next(10000, 99999)}-{Environment.MachineName}";
+                randomDeviceIDs.Add(key);
+                randomDevices.Add(key, OrleansClusterClient.GetGrain<ISensorTwinGrain>(key));
             }
 
             while (!stoppingToken.IsCancellationRequested)
             {
                 await Parallel.ForEachAsync(randomDeviceIDs, async (deviceId, stoppingToken) =>
                 {
-                    var grain = OrleansClusterClient.GetGrain<ISensorTwinGrain>(deviceId);
-
-                    await grain.ReceiveSensorState(new SensorState
+                    await randomDevices[deviceId].ReceiveSensorState(new SensorState
                     {
                         SensorId = deviceId,
                         TimeStamp = DateTime.Now,
@@ -50,8 +51,6 @@ namespace Clients.WorkerService
                         Value = rnd.Next(0, 100)
                     });
                 });
-
-                //await Task.Delay(100, stoppingToken);
             }
         }
     }
