@@ -53,7 +53,7 @@ namespace Clients.WorkerService
 
                 var randomDeviceId = randomDeviceIDs[rnd.Next(0, 100)];
 
-                await Task.Delay(100, stoppingToken);
+                //await Task.Delay(100, stoppingToken);
             }
         }
     }
